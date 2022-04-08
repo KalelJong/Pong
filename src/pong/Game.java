@@ -2,10 +2,12 @@ package pong;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 
-public class Game extends Canvas implements Runnable
+public class Game extends Canvas implements Runnable, KeyListener
 {
 
     public static int WIDTH = 240;
@@ -18,7 +20,7 @@ public class Game extends Canvas implements Runnable
     public Game()
     {
         this.setPreferredSize(new Dimension(WIDTH * SCALE, HEIGHT * SCALE));
-        player = new Player();
+        player = new Player(100, HEIGHT-10);
     }
 
     public static void main(String[] args)
@@ -40,7 +42,7 @@ public class Game extends Canvas implements Runnable
 
     public void tick()
     {
-
+        player.tick();
     }
 
     public void render()
@@ -80,5 +82,31 @@ public class Game extends Canvas implements Runnable
                 exception.printStackTrace();
             }
         }
+    }
+
+    @Override
+    public void keyTyped(KeyEvent e)
+    {
+
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e)
+    {
+
+        if (KeyEvent.KEY_PRESSED == KeyEvent.VK_RIGHT)
+        {
+            player.right = true;
+        }
+        else if (KeyEvent.KEY_PRESSED == KeyEvent.VK_LEFT)
+        {
+            player.left = false;
+        }
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e)
+    {
+
     }
 }
